@@ -1,0 +1,14 @@
+[package]
+name = "FirecrawlCLI"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive", "env"] }
+firecrawl = "^1.0"
+tokio = { version = "^1", features = ["full"] }
+clipboard = "0.5"
+url = "2.5"
+colored = "1.9"
+indicatif = "0.17"
+tiktoken-rs = "0.5"
