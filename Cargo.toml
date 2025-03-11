@@ -1,5 +1,9 @@
+[[bin]]
+name = "crawl"
+path = "src/main.rs"
+
 [package]
-name = "FirecrawlCLI"
+name = "crawlcli"
 version = "0.1.0"
 edition = "2021"
 
@@ -12,3 +16,4 @@ url = "2.5"
 colored = "1.9"
 indicatif = "0.17"
 tiktoken-rs = "0.5"
+serde_json = "1.0"

@@ -3,20 +3,6 @@
 version = 3
 
 [[package]]
-name = "FirecrawlCLI"
-version = "0.1.0"
-dependencies = [
- "clap",
- "clipboard",
- "colored",
- "firecrawl",
- "indicatif",
- "tiktoken-rs",
- "tokio",
- "url",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -334,6 +320,21 @@ name = "core-foundation-sys"
 version = "0.8.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b"
+
+[[package]]
+name = "crawlcli"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "clipboard",
+ "colored",
+ "firecrawl",
+ "indicatif",
+ "serde_json",
+ "tiktoken-rs",
+ "tokio",
+ "url",
+]
 
 [[package]]
 name = "darling"

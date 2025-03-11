@@ -13,6 +13,7 @@ use colored::*;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::time::Duration;
 use tiktoken_rs::cl100k_base;
+use serde_json;
 
 mod token_counter {
     use super::*;
@@ -53,6 +54,10 @@ struct Args {
     /// Flag to disable outputting to file, just copy to clipboard
     #[arg(short, long, default_value_t = false)]
     clipboard_only: bool,
+
+    /// Maximum depth to crawl (default: 3)
+    #[arg(short = 'D', long, default_value_t = 3)]
+    depth: u32,
 }
 
 async fn crawl_and_write(args: Args) -> Result<(), FirecrawlError>{
@@ -71,13 +76,15 @@ async fn crawl_and_write(args: Args) -> Result<(), FirecrawlError>{
     spinner.set_message("Crawling website...");
     spinner.enable_steady_tick(Duration::from_millis(120));
 
-    // Configure crawl options
+    // Configure crawl options with more detailed settings
     let crawl_options = CrawlOptions {
         scrape_options: CrawlScrapeOptions {
-            formats: vec![ CrawlScrapeFormats::Markdown,  ].into(),
+            formats: vec![CrawlScrapeFormats::Html].into(),
             ..Default::default()
         }.into(),
         limit: args.limit.into(),
+        allow_backward_links: Some(true), // Allow crawling links that aren't direct children
+        max_depth: Some(args.depth.try_into().unwrap()), // Use the depth from CLI args
         ..Default::default()
     };
 
@@ -92,7 +99,19 @@ async fn crawl_and_write(args: Args) -> Result<(), FirecrawlError>{
 
             for item in data.data {
                 if let Some(markdown) = item.markdown {
-                    markdown_output.push_str(&markdown);
+                    // Try to handle the markdown content, whether it's a string or needs conversion
+                    let content = if markdown.trim().starts_with('[') {
+                        // If it looks like JSON array, try to parse and join
+                        if let Ok(arr) = serde_json::from_str::<Vec<String>>(&markdown) {
+                            arr.join("\n")
+                        } else {
+                            markdown
+                        }
+                    } else {
+                        markdown
+                    };
+                    
+                    markdown_output.push_str(&content);
                     markdown_output.push_str("\n");
                 }
             }

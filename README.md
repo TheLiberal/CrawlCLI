@@ -21,10 +21,9 @@ A command-line interface for crawling websites and converting them to Markdown f
 ## Installation
 
 1. Clone the repository:
-
    ```bash
-   git clone https://github.com/yourusername/FirecrawlCLI.git
-   cd FirecrawlCLI
+   git clone https://github.com/TheLiberal/CrawlCLI.git
+   cd CrawlCLI
    ```
 
 2. Build and install globally:
@@ -32,29 +31,29 @@ A command-line interface for crawling websites and converting them to Markdown f
    cargo install --path .
    ```
 
-The CLI will be installed to `~/.cargo/bin/firecrawl`. Make sure `~/.cargo/bin` is in your PATH.
+The CLI will be installed to `~/.cargo/bin/crawl`. Make sure `~/.cargo/bin` is in your PATH.
 
 ## Usage
 
 ```bash
 # Basic usage
-firecrawl --url https://example.com
+crawl --url https://example.com
 
 # Specify custom output file
-firecrawl -u https://example.com -o custom_output.md
+crawl -u https://example.com -o custom_output.md
 
 # Copy to clipboard only (no file output)
-firecrawl -u https://example.com --clipboard-only
+crawl -u https://example.com --clipboard-only
 
 # Set custom page limit (default: 50)
-firecrawl -u https://example.com -l 100
+crawl -u https://example.com -l 100
 
 # Using API key from environment variable
 export FIRECRAWL_API_KEY=your_api_key
-firecrawl -u https://example.com
+crawl -u https://example.com
 
 # Or provide API key directly
-firecrawl -u https://example.com -a your_api_key
+crawl -u https://example.com -a your_api_key
 ```
 
 ## Options
@@ -70,7 +69,6 @@ firecrawl -u https://example.com -a your_api_key
 ## Output
 
 The program provides colorful output with:
-
 - Progress spinner while crawling
 - Success/error messages in color
 - Token count for the generated content
@@ -78,4 +76,4 @@ The program provides colorful output with:
 
 ## License
 
-[Add your chosen license here]
+MIT License
